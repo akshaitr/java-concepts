@@ -2,6 +2,7 @@
 
 1. [Java Fundamentals](https://github.com/akshaitr/java-concepts/blob/main/README.md#java-fundamentals)
 2. [Primitive Data types](https://github.com/akshaitr/java-concepts/blob/main/README.md#primitive-data-types)
+3. [Strings](https://github.com/akshaitr/java-concepts/blob/main/README.md#strings)
 
 # Java Fundamentals
 
@@ -26,7 +27,7 @@ char grade = 'A';        // single character
 **Reference types** — everything else. Objects, arrays, strings. The variable doesn't hold the data — it holds a pointer to where the data lives.
 
 ```java
-String name = "Karthik";  // 'name' points to a String object
+String name = "Akshai";  // 'name' points to a String object
 int[] scores = {90, 85, 70}; // 'scores' points to an array object
 ```
 
@@ -102,3 +103,69 @@ System.out.println(a / b);    // prints 3, NOT 2.5 — integer division truncate
 System.out.println(5.0 / 2);  // 2.5
 System.out.println((double) a / b); // 2.5 — this is type casting
 ```
+
+# Strings
+
+The `==` vs `.equals()` trap:
+
+In JavaScript, you use `===` to compare values and it works the way you expect:
+
+```javascript
+let a = "hello";
+let b = "hello";
+console.log(a === b); // true — compares the values
+```
+
+In Java, `==` on reference types does not compare values. It compares whether two variables point to the same locker (same memory address):
+
+```java
+String a = new String("hello");
+String b = new String("hello");
+System.out.println(a == b);      // false — different lockers!
+System.out.println(a.equals(b)); // true — same contents inside
+
+// But here's the confusing part:
+String c = "hello";
+String d = "hello";
+System.out.println(c == d);      // true — WHY?!
+```
+
+Why does the last one return `true`? Because of the **String Pool**.
+
+When you write a string literal like `"hello"` (without `new`), Java checks a special cache called the String Pool. If `"hello"` already exists there, Java reuses the same object instead of creating a new one. So `c` and `d` genuinely point to the same locker — which is why `==` returns true.
+
+But when you use `new String("hello")`, you're explicitly saying "create a new locker regardless," which bypasses the pool.
+```
+String Pool:
+  c ──────►  [ "hello" ]  ◄────── d     (same locker, == is true)
+
+Heap:
+  a ──────►  [ "hello" ]    (locker 1)
+  b ──────►  [ "hello" ]    (locker 2, different locker, == is false)
+```
+
+📢 NOTES: 
+
+> The rule is simple: always use .equals() for String comparison. Treat == on Strings as a bug. Even when == happens to work (because of the pool), relying on it is fragile and will eventually break.
+
+Common String methods you'll use daily:
+
+```java
+String name = "Akshai";
+
+name.length();              // 6 (not a property like JS — it's a method with parentheses)
+name.charAt(0);             // 'A'
+name.substring(0, 4);       // "Aksh" (start inclusive, end exclusive — same as JS slice)
+name.toLowerCase();          // "akshai" — returns NEW string, original unchanged
+name.toUpperCase();          // "AKSHAI"
+name.contains("ksh");        // true
+name.indexOf("ha");          // 3
+name.trim();                 // removes leading/trailing whitespace
+name.replace("i", "y");     // "Akshay"
+name.startsWith("Aks");     // true
+name.isEmpty();              // false
+```
+
+📢 NOTES: 
+
+> Every method returns a new String. The original is never modified. This is identical to how JS strings work.
