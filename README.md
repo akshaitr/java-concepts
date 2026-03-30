@@ -1,6 +1,7 @@
 # Java (For JS Developers)
 
 1. [Java Fundamentals](https://github.com/akshaitr/java-concepts/blob/main/README.md#java-fundamentals)
+2. [Primitive Data types](https://github.com/akshaitr/java-concepts/blob/main/README.md#primitive-data-types)
 
 # Java Fundamentals
 
@@ -66,4 +67,38 @@ y = 20;
 
 System.out.println(a);
 System.out.println(x);
+```
+
+# Primitive Data types
+
+Java has exactly 8 primitive types
+
+```java
+// Integer types (whole numbers) — differ by size
+byte   smallNum   = 127;          // -128 to 127 (1 byte)
+short  mediumNum  = 32000;        // -32,768 to 32,767 (2 bytes)
+int    normalNum  = 2000000000;   // -2.1 billion to 2.1 billion (4 bytes)
+long   bigNum     = 9000000000L;  // massive range (8 bytes) — note the 'L' suffix
+
+// Decimal types
+float  price      = 99.99f;      // 6-7 decimal digits precision — note the 'f' suffix
+double precise    = 99.999999999; // 15-16 decimal digits precision
+
+// Other
+boolean isReady   = true;         // true or false only — not truthy/falsy like JS
+char    letter    = 'A';          // single character, uses single quotes
+```
+
+The trap coming from JavaScript:
+
+In JS, 5 / 2 gives you 2.5. In Java:
+
+```java
+int a = 5;
+int b = 2;
+System.out.println(a / b);    // prints 3, NOT 2.5 — integer division truncates
+
+// To get 2.5, at least one operand must be a decimal type
+System.out.println(5.0 / 2);  // 2.5
+System.out.println((double) a / b); // 2.5 — this is type casting
 ```
