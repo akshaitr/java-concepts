@@ -46,7 +46,7 @@ ${\textsf{\color{khaki}Guess\ the\ output}}$
 int[] x = {1, 2, 3};
 int[] y = x;
 y[0] = 99;
-System.out.println(x[0]); // 99! Because x and y point to the same data.
+System.out.println(x[0]);
 ```
 
 Think of primitives as values written directly on a sticky note. Think of reference types as a sticky note with an address written on it, pointing to a locker where the actual data lives. Two sticky notes can have the same address — which means they share the same locker.
