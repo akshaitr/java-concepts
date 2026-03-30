@@ -4,65 +4,66 @@
 
 # Java Fundamentals
 
-Primitive data types
+In JavaScript, you never think about this:
 
-They have their own independant copies of the data.
-
-- byte
-- short
-- int
-- float
-- double
-- long
-- boolean
-- char
-
-```java
-int num = 10;
-char initial = 't';
-boolean isDelivered = true;
+```javascript
+let a = 5;       // where does this live? You don't care.
+let b = [1,2,3]; // where does this live? You don't care.
 ```
 
-Reference data types
+JS manages all memory for you behind the scenes. In Java, there are two distinct types of data, and they behave completely differently:
 
-They point to a reference or address to where the actual data is stored
-
-- String
-- Array
-- Class
+**Primitive types** — stored directly in memory, small, fast. These are the building blocks:
 
 ```java
-String state = "Columbia"
-int[] marks = {45, 50, 44, 47};
+int age = 30;           // integer (no decimals)
+double salary = 85000.50; // decimal number
+boolean isActive = true;  // true or false
+char grade = 'A';        // single character
 ```
 
-When copied:
+**Reference types** — everything else. Objects, arrays, strings. The variable doesn't hold the data — it holds a pointer to where the data lives.
+
+```java
+String name = "Karthik";  // 'name' points to a String object
+int[] scores = {90, 85, 70}; // 'scores' points to an array object
+```
+
+${\textsf{\color{khaki}Guess\ the\ output}}$
 
 ```java
 int a = 10;
-int b = a; // simply copies the value in a
-b = 9; // doesn't change the value in a
-
-int[] marks = {10, 20, 30, 40};
-int[] score = marks; // score refer to the same array marks points to
-score[0] = 15; // changes the values in marks
+int b = a;      
+b = 20;
+System.out.println(a);
 ```
 
-
-Now reassignment is another thing.
+${\textsf{\color{khaki}Guess\ the\ output}}$
 
 ```java
-score = {10, 15, 20, 25} // changes the pointer
+int[] x = {1, 2, 3};
+int[] y = x;
+y[0] = 99;
+System.out.println(x[0]); // 99! Because x and y point to the same data.
 ```
 
-reassignment changes the pointer, mutation changes the shared data.
+Think of primitives as values written directly on a sticky note. Think of reference types as a sticky note with an address written on it, pointing to a locker where the actual data lives. Two sticky notes can have the same address — which means they share the same locker.
 
+📢 NOTES: 
 
-Primitives can't be null
+> In JavaScript, null and undefined can appear anywhere. In Java, primitive types cannot be null. Only reference types can be null, which means NullPointerException — you'll meet this error often, and now you know exactly why it happens.
 
-```
+${\textsf{\color{khaki}Guess\ the\ output}}$
+
+```java
+String a = "hello";
+String b = a;
 int x = 10;
-x = null // wrong
-```
+int y = x;
 
-reference types can be null
+b = "world";
+y = 20;
+
+System.out.println(a);
+System.out.println(x);
+```
